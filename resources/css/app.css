@@ -1,0 +1,19 @@
+/* 1. Framework */
+@import "./vendor/bootstrap.min.css";
+
+/* 2. Font Awesome (Pro) */
+@import "./vendor/fontawesome.min.css";
+
+/* 3. Plugins */
+@import "./vendor/magnific-popup.min.css";
+@import "./vendor/swiper-bundle.min.css";
+
+/* 4. Custom style project */
+@import "./style.css";
+
+/* 5. Tempatkan override tambahan (opsional) di bawah ini */
+/*
+.example {
+  color: #123;
+}
+*/
