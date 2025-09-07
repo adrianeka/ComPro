@@ -3,13 +3,8 @@
 Sebuah company profile website yang dibangun menggunakan Laravel 12 dengan template modern dan responsive.
 
 ## 📋 Prerequisites
-
-Pastikan kamu sudah install software berikut:
-- **PHP** >= 8.1
-- **Composer** >= 2.0
+- **PHP** >= 8.2
 - **Node.js** >= 20.19.1
-- **npm** >= 9.0
-- **MySQL** atau database lainnya
 
 ## 🚀 Installation & Setup
 
