@@ -7,7 +7,7 @@
         ['label' => 'Team', 'url' => route('home').'#team-sec'],
         ['label' => 'Products', 'url' => route('home').'#product-sec'],
         ['label' => 'Network', 'url' => route('home').'#network-sec'],
-        ['label' => 'News & Articles', 'url' => route('home')],
+        ['label' => 'News & Articles', 'url' => route('news')],
         ['label' => 'Contact', 'url' => route('home').'#contact-sec'],
     ],
     'contacts' => [

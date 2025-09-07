@@ -39436,7 +39436,7 @@ span.select2-selection.select2-selection--single:focus {
   text-justify: inter-word;
 }
 
-/* HERO / TOP CAROUSEL ================================== */
+/* INDEX LANDINGL ================================== */
 #top-carousel {
   /* Hilangkan padding default container-fluid kalau mau full bleed */
   padding-left: 0;
@@ -39516,17 +39516,6 @@ span.select2-selection.select2-selection--single:focus {
   opacity: 1; /* aktif hanya di slide aktif */
 }
 
-/* Swiper pagination / nav (kalau diaktifkan) bisa kamu styling ulang di sini */
-/* Example:
-#top-carousel .swiper-pagination-bullet {
-  background:#fff;
-  opacity:.4;
-}
-#top-carousel .swiper-pagination-bullet-active {
-  opacity:1;
-}
-*/
-
 /* ICON STYLE (tetap) */
 .icon-style {
   background-color: #2a6eb5;
@@ -39599,25 +39588,122 @@ span.select2-selection.select2-selection--single:focus {
 }
 
 
-/* CUSTOM  GAMBAR BLOG */
-/* BLOG SLIDER IMAGE UNIFORM */
+/* BLOG SLIDER IMAGE UNIFORM (paksa sejajar) */
 #blogSlider2 .blog-card .blog-img {
-  position: relative;
-  width: 100%;
-  height: 250px;              /* target tinggi */
+  position: relative !important;
+  width: 100% !important;
+  height: 250px !important;         /* tinggi seragam */
+  padding: 0 !important;             /* matikan rasio via padding-top */
+  aspect-ratio: auto !important;     /* override jika tema pakai aspect-ratio */
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  background: #f2f4f5 !important;
+  line-height: 0;                    /* hilangkan whitespace baseline img */
+  margin-bottom: 0 !important;       /* cegah jarak bawah beda-beda */
+}
+
+/* Matikan pseudo-element gradient/shadow kalau menambah tinggi visual */
+#blogSlider2 .blog-card .blog-img::before,
+#blogSlider2 .blog-card .blog-img::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* IMG fill kontainer 100% dengan crop rapi */
+#blogSlider2 .blog-card .blog-img img,
+#blogSlider2 .blog-card .blog-img picture img,
+#blogSlider2 .blog-card .blog-img .lazy-img {
+  position: absolute !important;
+  inset: 0 !important;               /* top:0; right:0; bottom:0; left:0 */
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+  border-radius: 12px !important;
+}
+
+/* Jika slider pakai Swiper/Slick, pastikan card stretching konsisten */
+#blogSlider2 .swiper-slide,
+#blogSlider2 .slick-slide {
+  height: auto !important;
+}
+#blogSlider2 .blog-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* GAMBAR TEAM DETAIL */
+.about-card_img {
+  max-width: 280px;
+  margin: 0 auto;
+  border-radius: 18px;
   overflow: hidden;
-  border-radius: 12px;         /* samakan sudut */
-  background: #f2f4f5;         /* fallback */
+  box-shadow: 0 4px 24px rgba(80,112,168,0.13);
+  background: #f5f7fa;
+  aspect-ratio: 4/5;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#blogSlider2 .blog-card .blog-img img {
+.about-card_img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;           /* crop rapi */
-  object-position: center center;
+  object-fit: cover;
   display: block;
+}
+
+/* GAMBAR FOOTER */
+.footer-layout3 .recent-post-wrap .recent-post {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-layout3 .recent-post .media-img {
+  width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.footer-layout3 .recent-post .media-img > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.footer-layout3 .recent-post .media-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+@media (max-width: 575.98px) {
+  .footer-layout3 .recent-post .media-img {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+}
+
+/* CUSTOM PRELOADER FONTS */
+@font-face {
+  font-family: 'BiomeW01Wide';
+  src: url('/public/assets/fonts/BiomeW01WideBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+.th-preloader .animation-preloader .txt-loading,
+.th-preloader .animation-preloader .txt-loading .characters {
+  font-family: 'BiomeW01Wide', var(--title-font), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
 }
 /*# sourceMappingURL=style.css.map */

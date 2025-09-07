@@ -13,22 +13,6 @@
         ],
     ],
 
-    // Recent posts (bisa kirim dari controller). Struktur: [['title'=>'','url'=>'','date'=>'Y-m-d','image'=>asset('...')], ...]
-    'recentPosts' => [
-        [
-            'title' => 'Unsatiable entreaties may collecting Power.',
-            'url'   => route('home'), // ganti ke route detail kalau ada
-            'date'  => '2024-06-21',
-            'image' => asset('assets/img/blog/recent-post-2-1.jpg'),
-        ],
-        [
-            'title' => 'Regional Manager limited time management.',
-            'url'   => route('home'),
-            'date'  => '2024-06-22',
-            'image' => asset('assets/img/blog/recent-post-2-2.jpg'),
-        ],
-    ],
-
     // Link bawah (Terms, dll)
     'footerLinks' => [
         ['label' => 'Terms & Condition', 'url' => '#'],
@@ -151,15 +135,7 @@
                         All Rights Reserved.
                     </p>
                 </div>
-                <div class="col-lg-6 text-lg-end text-center">
-                    <div class="footer-links">
-                        <ul>
-                            @foreach($footerLinks as $lnk)
-                                <li><a href="{{ $lnk['url'] }}">{{ $lnk['label'] }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
+                <div class="col-lg-6 text-lg-end text-center"></div>
             </div>
         </div>
     </div>

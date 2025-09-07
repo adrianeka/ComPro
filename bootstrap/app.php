@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
+        $middleware->alias([
+            'loginrequired' => \App\Http\Middleware\LoginRequired::class,
+            // alias lainnya...
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -323,10 +323,10 @@
                     <div class="swiper-wrapper">
                         <!-- Single Item -->
                         <div class="swiper-slide">
-                            <a href="team-details.html">
+                            <a href="{{ url('team/agoes') }}">
                                 <div class="th-team team-grid">
                                     <div class="team-img">
-                                        <img src="{{('assets/images/direktur-utama.jpg')}}" alt="Team">
+                                        <img src="{{ asset('assets/images/direktur-utama.jpg') }}" alt="Team">
                                     </div>
                                     <h3 class="box-title">Ir. Mochamat Agoes, MM</h3>
                                     <span class="team-desig">Direktur Utama</span>
@@ -335,12 +335,11 @@
                             </a>
                         </div>
 
-                        <!-- Single Item -->
                         <div class="swiper-slide">
-                            <a href="team-details.html">
+                            <a href="{{ url('team/syamsul') }}">
                                 <div class="th-team team-grid">
                                     <div class="team-img">
-                                        <img src="{{('assets/images/direktur-operasional.jpg')}}" alt="Team">
+                                        <img src="{{ asset('assets/images/direktur-operasional.jpg') }}" alt="Team">
                                     </div>
                                     <h3 class="box-title">Syamsul Arifin, ST</h3>
                                     <span class="team-desig">Direktur Operasional</span>
@@ -349,12 +348,11 @@
                             </a>
                         </div>
 
-                        <!-- Single Item -->
                         <div class="swiper-slide">
-                            <a href="team-details.html">
+                            <a href="{{ url('team/eko') }}">
                                 <div class="th-team team-grid">
                                     <div class="team-img">
-                                        <img src="{{('assets/images/direktur-bisnis.jpg')}}" alt="Team">
+                                        <img src="{{ asset('assets/images/direktur-bisnis.jpg') }}" alt="Team">
                                     </div>
                                     <h3 class="box-title">Eko Sudarsono S.Kom</h3>
                                     <span class="team-desig">Direktur Bisnis</span>
@@ -430,86 +428,26 @@
             <div class="slider-area">
                 <div class="swiper th-slider has-shadow" id="blogSlider2" data-slider-options='{"loop":true,"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"}}}'>
                     <div class="swiper-wrapper">
+                        @foreach($news as $new)
                         <div class="swiper-slide">
                             <div class="blog-card">
                                 <div class="blog-img">
-                                    <img src="{{('assets/img/blog/blog_1_1.jpg')}}" alt="blog image">
+                                    <img src="{{ $new->thumbnail ? asset('storage/'.$new->thumbnail) : asset('assets/img/blog/blog_1_1.jpg') }}" alt="{{ $new->title }}">
                                 </div>
                                 <div class="blog-content">
                                     <div class="blog-meta">
-                                        <a href="blog.html"><i class="fal fa-calendar-days"></i>15 Jan, 2024</a>
-                                        <a href="blog.html"><i class="fal fa-comments"></i>2 Comments</a>
+                                        <a href="{{ route('news') }}"><i class="fal fa-calendar-days"></i>{{ \Illuminate\Support\Carbon::parse($new->published_at ?? $new->created_at)->format('d F, Y') }}</a>
                                     </div>
-                                    <h3 class="box-title"><a href="blog-details.html">Unsatiable entreaties may collecting Power.</a></h3>
-                                    <p class="blog-text">Progressively plagiarize quality metrics for impactful data. Assertively. Holisticly leverage existing magnetic.</p>
+                                    <h3 class="box-title"><a href="{{ route('news.detail', $new->slug) }}">{{ $new->title }}</a></h3>
+                                    <p class="blog-text">{{ $new->excerpt ? Str::limit(strip_tags($new->excerpt), 180) : Str::limit(strip_tags($new->content), 180) }}</p>
                                     <div class="blog-bottom">
-                                        <a href="blog.html" class="author"><img src="{{('assets/img/blog/author-1-1.png')}}" alt="avater"> By Themeholy</a>
-                                        <a href="blog-details.html" class="line-btn">Read More<i class="fas fa-arrow-right"></i></a>
+                                        <a href="{{ route('news') }}" class="author"><img src="{{('assets/img/blog/author-1-1.png')}}" alt="avater">{{ $new->author ?? 'Admin' }}</a>
+                                        <a href="{{ route('news.detail', $new->slug) }}" class="line-btn">Read More<i class="fas fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="swiper-slide">
-                            <div class="blog-card">
-                                <div class="blog-img">
-                                    <img src="{{('assets/img/blog/blog_1_1.jpg')}}" alt="blog image">
-                                </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <a href="blog.html"><i class="fal fa-calendar-days"></i>16 Jan, 2024</a>
-                                        <a href="blog.html"><i class="fal fa-comments"></i>3 Comments</a>
-                                    </div>
-                                    <h3 class="box-title"><a href="blog-details.html">Regional Manager & limited time management.</a></h3>
-                                    <p class="blog-text">Progressively plagiarize quality metrics for impactful data. Assertively. Holisticly leverage existing magnetic.</p>
-                                    <div class="blog-bottom">
-                                        <a href="blog.html" class="author"><img src="{{('assets/img/blog/author-1-1.png')}}" alt="avater"> By Themeholy</a>
-                                        <a href="blog-details.html" class="line-btn">Read More<i class="fas fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="blog-card">
-                                <div class="blog-img">
-                                    <img src="{{('assets/img/blog/blog_1_1.jpg')}}" alt="blog image">
-                                </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <a href="blog.html"><i class="fal fa-calendar-days"></i>17 Jan, 2024</a>
-                                        <a href="blog.html"><i class="fal fa-comments"></i>2 Comments</a>
-                                    </div>
-                                    <h3 class="box-title"><a href="blog-details.html">What’s the Holding Back the It Solution Industry?</a></h3>
-                                    <p class="blog-text">Progressively plagiarize quality metrics for impactful data. Assertively. Holisticly leverage existing magnetic.</p>
-                                    <div class="blog-bottom">
-                                        <a href="blog.html" class="author"><img src="{{('assets/img/blog/author-1-1.png')}}" alt="avater"> By Themeholy</a>
-                                        <a href="blog-details.html" class="line-btn">Read More<i class="fas fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="blog-card">
-                                <div class="blog-img">
-                                    <img src="{{('assets/img/blog/blog_1_1.jpg')}}" alt="blog image">
-                                </div>
-                                <div class="blog-content">
-                                    <div class="blog-meta">
-                                        <a href="blog.html"><i class="fal fa-calendar-days"></i>19 Jan, 2024</a>
-                                        <a href="blog.html"><i class="fal fa-comments"></i>4 Comments</a>
-                                    </div>
-                                    <h3 class="box-title"><a href="blog-details.html">Latin derived from Cicero's 1st-century BC</a></h3>
-                                    <p class="blog-text">Progressively plagiarize quality metrics for impactful data. Assertively. Holisticly leverage existing magnetic.</p>
-                                    <div class="blog-bottom">
-                                        <a href="blog.html" class="author"><img src="{{('assets/img/blog/author-1-1.png')}}" alt="avater"> By Themeholy</a>
-                                        <a href="blog-details.html" class="line-btn">Read More<i class="fas fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
                 <button data-slider-prev="#blogSlider2" class="slider-arrow style3 slider-prev"><i class="far fa-arrow-left"></i></button>
