@@ -48,7 +48,7 @@ $(function() {
         ajax: '{{ route("admin.news.index") }}',
         columns: [
             { data: 'thumbnail', name: 'thumbnail', render: function(data) {
-                return data ? `<img src="/storage/${data}" width="80" class="img-thumbnail">` : '-';
+                return data ? `<img src="/${data}" width="80" class="img-thumbnail">` : '-';
             }},
             { data: 'title', name: 'title' },
             { data: 'slug', name: 'slug' },

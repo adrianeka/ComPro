@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Post;
+use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
@@ -15,13 +16,19 @@ class NewsController extends Controller
             'upload' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:5120', // 5MB
         ]);
 
-        $path = $request->file('upload')->store('images/news/content', 'public');
-        $url  = asset('storage/'.$path);
+        $file = $request->file('upload');
+        
+        $filename = time() . '_' . $file->getClientOriginalName();
+        
+        $destinationPath = 'images/news/content';
 
-        // Format respons CKFinder/CKEditor 5
+        $file->move(public_path($destinationPath), $filename);
+
+        $url = asset($destinationPath . '/' . $filename);
+
         return response()->json([
             'uploaded'  => 1,
-            'fileName'  => basename($path),
+            'fileName'  => $filename,
             'url'       => $url,
         ]);
     }
@@ -40,6 +47,7 @@ class NewsController extends Controller
                         'published_at',
                         'created_at',
                     ])
+                    ->orderBy('published_at', 'desc')
                 )
                 // (opsional) format tanggal agar rapi
                 ->editColumn('published_at', function ($post) {
@@ -74,14 +82,25 @@ class NewsController extends Controller
             'published_at' => 'nullable|date',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('thumbnail');
         $data['slug'] = Str::slug($data['title']);
-
-        if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('images/news', 'public');
+        $data['author'] = 'Admin';
+        if (empty($data['published_at'])) {
+            $data['published_at'] = now();
         }
 
-        $data['author'] = 'Admin';
+        // --- AWAL PERUBAHAN ---
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destinationPath = 'images/news';
+            
+            // Pindahkan file ke public/images/news
+            $file->move(public_path($destinationPath), $filename);
+            
+            // Simpan path relatif ke database
+            $data['thumbnail'] = $destinationPath . '/' . $filename;
+        }
 
         Post::create($data);
 
@@ -112,13 +131,23 @@ class NewsController extends Controller
             'published_at' => 'nullable|date',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('thumbnail');
         $data['slug'] = Str::slug($data['title']);
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('images/news', 'public');
-        } else {
-            unset($data['thumbnail']);
+            // 1. Hapus thumbnail lama jika ada
+            if ($news->thumbnail && File::exists(public_path($news->thumbnail))) {
+                File::delete(public_path($news->thumbnail));
+            }
+            
+            // 2. Unggah thumbnail baru
+            $file = $request->file('thumbnail');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destinationPath = 'images/news';
+            
+            $file->move(public_path($destinationPath), $filename);
+            
+            $data['thumbnail'] = $destinationPath . '/' . $filename;
         }
 
         $news->update($data);
@@ -129,6 +158,9 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $news = Post::findOrFail($id);
+         if ($news->thumbnail && File::exists(public_path($news->thumbnail))) {
+            File::delete(public_path($news->thumbnail));
+        }
         $news->delete();
 
         return redirect()->route('admin.news.index')->with('success', 'News deleted successfully!');

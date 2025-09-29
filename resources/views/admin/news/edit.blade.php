@@ -20,7 +20,10 @@
     @endif
 
     @php
-        $thumb = $news->thumbnail ? asset('storage/'.$news->thumbnail) : null;
+        $thumb = ($news->thumbnail && \Illuminate\Support\Facades\File::exists(public_path($news->thumbnail)))
+            ? asset($news->thumbnail)
+            : null;
+        
         $publishedVal = old('published_at');
         if (!$publishedVal && $news->published_at) {
             try {

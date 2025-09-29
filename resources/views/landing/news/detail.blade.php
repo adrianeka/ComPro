@@ -26,10 +26,11 @@
                         @php
                             $thumbPath = $news->thumbnail;
                             $isFullUrl = is_string($thumbPath) && preg_match('#^https?://#i', $thumbPath);
+                            $fileExists = $thumbPath && \Illuminate\Support\Facades\File::exists(public_path($thumbPath));
                             $heroUrl = $isFullUrl
                                 ? $thumbPath
-                                : (($thumbPath && \Illuminate\Support\Facades\Storage::disk('public')->exists($thumbPath))
-                                    ? \Illuminate\Support\Facades\Storage::url($thumbPath)
+                                : ($fileExists 
+                                    ? asset($thumbPath)
                                     : asset('assets/img/blog/placeholder-391x250.jpg'));
                         @endphp
 
@@ -66,10 +67,11 @@
                                     @php
                                         $t = $r->thumbnail;
                                         $tIsUrl = is_string($t) && preg_match('#^https?://#i', $t);
+                                        $tFileExists = $t && \Illuminate\Support\Facades\File::exists(public_path($t));
                                         $thumbRecent = $tIsUrl
                                             ? $t
-                                            : (($t && \Illuminate\Support\Facades\Storage::disk('public')->exists($t))
-                                                ? \Illuminate\Support\Facades\Storage::url($t)
+                                            : ($tFileExists
+                                                ? asset($t)
                                                 : asset('assets/img/blog/blog_1_1.jpg'));
                                     @endphp
                                     <div class="recent-post">

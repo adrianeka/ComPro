@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
                     'url'   => route('news.detail', $p->slug),
                     'date'  => optional($p->published_at ?? $p->created_at)?->format('Y-m-d'),
                     'image' => $p->thumbnail
-                        ? asset('storage/' . $p->thumbnail)
+                        ? asset($p->thumbnail)
                         : asset('assets/img/blog/recent-post-2-1.jpg'),
                 ];
             })->toArray();

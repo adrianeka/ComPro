@@ -25,7 +25,7 @@
                             <div class="blog-img">
                                 <a href="{{ route('news.detail', $news->slug) }}">
                                     <img
-                                        src="{{ $news->thumbnail ? asset('storage/'.$news->thumbnail) : asset('assets/img/blog/blog_1_1.jpg') }}"
+                                        src="{{ $news->thumbnail ? asset($news->thumbnail) : asset('assets/img/blog/blog_1_1.jpg') }}"
                                         alt="{{ $news->title }}">
                                 </a>
                             </div>
@@ -67,7 +67,7 @@
                                     <div class="media-img">
                                         <a href="{{ route('news.detail', $r->slug) }}">
                                             <img
-                                                src="{{ $r->thumbnail ? asset('storage/'.$r->thumbnail) : asset('assets/img/blog/blog_1_1.jpg') }}"
+                                                src="{{ $r->thumbnail ? asset($r->thumbnail) : asset('assets/img/blog/blog_1_1.jpg') }}"
                                                 alt="{{ $r->title }}">
                                         </a>
                                     </div>
